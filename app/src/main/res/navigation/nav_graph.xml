@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/pagerFragment">
+
+    <fragment
+        android:id="@+id/pagerFragment"
+        android:name="com.example.pager.PagerFragment"
+        android:label="fragment_pager"
+        tools:layout="@layout/fragment_pager">
+        <action
+            android:id="@+id/action_pagerFragment_to_secondPagerFragment"
+            app:destination="@id/secondPagerFragment"
+            app:popUpTo="@id/pagerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/secondPagerFragment"
+        android:name="com.example.pager.SecondPagerFragment"
+        android:label="SecondPagerFragment" />
+
+</navigation>
