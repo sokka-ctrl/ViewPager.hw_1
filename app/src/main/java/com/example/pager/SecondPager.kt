@@ -1,10 +1,14 @@
 package com.example.pager
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pager.adapters.NotesAdapter
@@ -13,6 +17,7 @@ import com.example.pager.models.NotesModel
 
 class SecondPagerFragment : Fragment() {
     private lateinit var binding: FragmentSecondPagerBinding
+    private var boolForNotes = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,7 +51,7 @@ class SecondPagerFragment : Fragment() {
             "План на жизнь",
             "Посадить сына, вырастить дом, построить дерево. Нужно",
             "31 мая 12:45",
-            R.color.light_red
+            R.color.blue_light
         )
         val idem5 = NotesModel(
             "Нужно сделать",
@@ -70,7 +75,7 @@ class SecondPagerFragment : Fragment() {
             "Нужно сделать",
             "Работы с проектом, сделать домашку, построить бизнес и",
             "31 мая 12:45",
-            R.color.banana
+            R.color.blue_light
         )
         val idem9 = NotesModel(
             "План на жизнь:",
@@ -88,28 +93,58 @@ class SecondPagerFragment : Fragment() {
         notesList.add(idem8)
         notesList.add(idem9)
 
+        boolForNotes = savedInstanceState?.getBoolean("keyNote") ?: false
 
         val notesAdapter = NotesAdapter(notesList)
         val recyclerView: RecyclerView = binding.rvNotesMain
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerView.adapter = notesAdapter
-        recyclerView.layoutManager = linearLayoutManager
+        val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = if (boolForNotes) gridLayoutManager else linearLayoutManager
 
-        binding.etSearch.setOnFocusChangeListener(object : View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
-                if (hasFocus) {
-                    binding.etSearch.animate().scaleX(1.10F).scaleY(1.10F).setDuration(100)
-                } else {
-                    binding.etSearch.animate().scaleX(1.05F).scaleY(1.05F).setDuration(100)
-                        .withEndAction {
-                            binding.etSearch.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100)
-                                .start()
-                        }.start()
+        binding.ivChangeType.setOnClickListener {
+            Log.d("ololo", "clickcahngertype ")
 
-                }
+            Log.d("ololo", "$boolForNotes")
+            if (boolForNotes == true) {
+                boolForNotes = false
+                recyclerView.layoutManager = linearLayoutManager
+            } else {
+                boolForNotes = true
+                recyclerView.layoutManager = gridLayoutManager
             }
-        })
+        }
+
+        binding.etSearch.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.etSearch.animate().scaleX(1.10F).scaleY(1.10F).setDuration(100).start()
+            } else {
+                binding.etSearch.animate().scaleX(1.0F).scaleY(1.0F).setDuration(100).start()
+            }
+        }
+
+        binding.etSearch.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.etSearch.animate().scaleX(1.05F).scaleY(1.05F).setDuration(100).start()
+            } else {
+                binding.etSearch.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100).start()
+            }
+        }
+
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
+            if (!imeVisible) {
+                binding.etSearch.clearFocus()
+            }
+            insets
+        }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("keyNote", boolForNotes)
+    }
 }
+

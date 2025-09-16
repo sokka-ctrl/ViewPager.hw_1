@@ -34,16 +34,13 @@ class OnBoardAdapter(
             binding.tvTitle.text = pagerModel.title
             binding.tvDesc.text = pagerModel.desc
             binding.lottieView.setAnimation(pagerModel.lottieImg)
-
             if (adapterPosition != onBoardList.size - 1) {
                 binding.btnStart.visibility = View.INVISIBLE
-                 binding.tvSkip.visibility = View.VISIBLE
-                    binding.tvSkip.setOnClickListener{
-                        Log.d("onSkip", "clicked ")
-                        onSkip(pagerModel)
-
+                binding.tvSkip.visibility = View.VISIBLE
+                binding.tvSkip.setOnClickListener {
+                    Log.d("onSkip", "clicked ")
+                    onSkip(pagerModel)
                 }
-
             } else {
                 binding.btnStart.visibility = View.VISIBLE
                 binding.tvSkip.visibility = View.GONE
@@ -55,6 +52,6 @@ class OnBoardAdapter(
                     onStart(pagerModel)
                 }
             }
+            }
         }
     }
-}

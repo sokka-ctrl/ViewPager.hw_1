@@ -37,6 +37,7 @@ class NotesAdapter(val list_note: ArrayList<NotesModel>) :
     inner class NotesViewHolder(private val binding: NotesItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+
         fun onBind(model: NotesModel) {
             val colorInt = ContextCompat.getColor(itemView.context, model.notesColor)
             binding.root.background.setTint(colorInt)
@@ -44,7 +45,7 @@ class NotesAdapter(val list_note: ArrayList<NotesModel>) :
             binding.tvNotesDesc.text = model.notesDesc
             binding.tvNotesData.text = model.notesData
             itemView.setOnClickListener {
-                itemView.animate().scaleX(1.05F).scaleY(1.05F).setDuration(100).withEndAction {
+                itemView.animate().scaleX(1.05f).scaleY(1.05f).setDuration(100).withEndAction {
                     itemView.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100).start()
                 }.start()
             }
