@@ -5,4 +5,6 @@
     <string name="skip">Пропустить</string>
     <string name="notes">Notes</string>
     <string name="start">Начать</string>
+    <string name="search">🔎 Поиск заметок</string>
+    <string name="notesAll">Все заметки</string>
 </resources>

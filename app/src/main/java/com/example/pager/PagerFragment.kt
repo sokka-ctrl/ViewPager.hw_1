@@ -5,11 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.enableEdgeToEdge
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.size
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
+import com.example.pager.databinding.ActivityMainBinding
 import com.example.pager.databinding.FragmentPagerBinding
+import com.example.pager.databinding.FragmentSecondPagerBinding
+import com.example.pref.local.Pref
+import kotlin.random.Random
 
 class PagerFragment : Fragment() {
+    private var tepter: Boolean = true
+    private lateinit var pref: Pref
     private lateinit var binding: FragmentPagerBinding
 
     override fun onCreateView(
@@ -20,26 +29,65 @@ class PagerFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-         val modelList = arrayListOf(
-            PagerModel("Удобство", "Создавайте заметки в два клика! Записывайте мысли, идеи и важные задачи мгновенно.", R.raw.lottie_one),
-            PagerModel("Организация", "Организуйте заметки по папкам и тегам. Легко находите нужную информацию в любое время.", R.raw.lottie_second),
-            PagerModel("Синхронизация", "Синхронизация на всех устройствах. Доступ к записям в любое время и в любом месте.", R.raw.lottie_triple)
-        )
-        val adapter = OnBoardAdapter(modelList, ::onStart, ::onSkip)
 
+        pref = Pref(binding.root.context)
+        if (pref.getTepter() == false) {
+            findNavController().navigate(R.id.action_pagerFragment_to_secondPagerFragment)
+        }
+
+
+        val modelList = arrayListOf(
+            PagerModel(
+                "Удобство",
+                "Создавайте заметки в два клика! Записывайте мысли, идеи и важные задачи мгновенно.",
+                R.raw.lottie_one
+            ),
+            PagerModel(
+                "Организация",
+                "Организуйте заметки по папкам и тегам. Легко находите нужную информацию в любое время.",
+                R.raw.lottie_second
+            ),
+            PagerModel(
+                "Синхронизация",
+                "Синхронизация на всех устройствах. Доступ к записям в любое время и в любом месте.",
+                R.raw.lottie_triple
+            )
+        )
+
+        val adapter = OnBoardAdapter(modelList, ::onStart, ::onSkip)
         binding.vpViewPager2.adapter = adapter
 
         val wormDotsIndicator = binding.dotsIndicator
         val viewPager = binding.vpViewPager2
         viewPager.adapter = adapter
+
         wormDotsIndicator.attachTo(viewPager)
     }
-    private fun onSkip(pagerModel: PagerModel){
-    binding.vpViewPager2.currentItem = binding.vpViewPager2.size + 1
+
+    private fun onSkip(pagerModel: PagerModel) {
+        binding.vpViewPager2.currentItem = binding.vpViewPager2.size + 1
     }
+
     private fun onStart(pagerModel: PagerModel) {
+
         findNavController().navigate(R.id.action_pagerFragment_to_secondPagerFragment)
+
+        tepter = false
+        pref.saveTepter(tepter)
     }
 }
+
+//        binding.vpViewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+//            override fun onPageSelected(position: Int) {
+//                super.onPageSelected(position)
+//                    var marginB =
+//                    if (position < 2) 160 else 250
+//                marginB = (marginB * resources.displayMetrics.density).toInt()
+//                val constraintSet = ConstraintSet()
+//                constraintSet.clone(binding.root)
+//                constraintSet.setMargin(R.id.dots_indicator, ConstraintSet.BOTTOM, marginB)
+//                constraintSet.applyTo(binding.root)
+//            }})

@@ -4,5 +4,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark_yellow">#D88B02</color>
     <color name="dark_gray">#252525</color>
-    <color name="gray">#B4B4B4</color>
+    <color name="gray_light">#B4B4B4</color>
+    <color name="gray">#535353</color>
+    <color name="light_red">#FF9E9E</color>
+    <color name="banana">#FFF599</color>
+    <color name="salad">#91F48F</color>
 </resources>
