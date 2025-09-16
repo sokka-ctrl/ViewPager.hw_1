@@ -1,4 +1,4 @@
-package com.example.pager
+package com.example.pager.models
 
 data class PagerModel(
     val title: String,

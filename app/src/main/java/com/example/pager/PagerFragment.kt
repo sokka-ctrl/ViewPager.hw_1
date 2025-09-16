@@ -5,16 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.enableEdgeToEdge
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.size
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
-import com.example.pager.databinding.ActivityMainBinding
+import com.example.pager.adapters.OnBoardAdapter
 import com.example.pager.databinding.FragmentPagerBinding
-import com.example.pager.databinding.FragmentSecondPagerBinding
+import com.example.pager.models.PagerModel
 import com.example.pref.local.Pref
-import kotlin.random.Random
 
 class PagerFragment : Fragment() {
     private var tepter: Boolean = true

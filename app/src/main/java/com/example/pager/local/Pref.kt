@@ -2,7 +2,7 @@ package com.example.pref.local
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.example.pager.AppKey
+import com.example.pager.keys.AppKey
 
 class Pref(context: Context) {
 

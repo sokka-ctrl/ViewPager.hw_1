@@ -1,10 +1,10 @@
-package com.example.pager
+package com.example.pager.adapters
 
-import android.R
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pager.models.NotesModel
 import com.example.pager.databinding.NotesItemBinding
 
 class NotesAdapter(val list_note: ArrayList<NotesModel>) :

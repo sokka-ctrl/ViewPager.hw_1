@@ -1,5 +1,5 @@
-package com.example.pager
-import android.graphics.Color
+package com.example.pager.models
+
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 

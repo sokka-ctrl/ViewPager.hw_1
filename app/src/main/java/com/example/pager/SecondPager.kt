@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pager.adapters.NotesAdapter
 import com.example.pager.databinding.FragmentSecondPagerBinding
+import com.example.pager.models.NotesModel
 
 class SecondPagerFragment : Fragment() {
     private lateinit var binding: FragmentSecondPagerBinding

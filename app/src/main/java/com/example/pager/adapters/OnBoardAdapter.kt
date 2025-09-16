@@ -1,10 +1,11 @@
-package com.example.pager
+package com.example.pager.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pager.models.PagerModel
 import com.example.pager.databinding.PagerItemBinding
 
 class OnBoardAdapter(
@@ -37,7 +38,7 @@ class OnBoardAdapter(
             if (adapterPosition != onBoardList.size - 1) {
                 binding.btnStart.visibility = View.INVISIBLE
                  binding.tvSkip.visibility = View.VISIBLE
-                    binding.tvSkip.setOnClickListener {
+                    binding.tvSkip.setOnClickListener{
                         Log.d("onSkip", "clicked ")
                         onSkip(pagerModel)
 
@@ -57,6 +58,3 @@ class OnBoardAdapter(
         }
     }
 }
-
-
-
