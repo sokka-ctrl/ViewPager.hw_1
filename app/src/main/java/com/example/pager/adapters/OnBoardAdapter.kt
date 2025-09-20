@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pager.models.PagerModel
+import com.example.pager.models.OnBoardModel
 import com.example.pager.databinding.PagerItemBinding
 
 class OnBoardAdapter(
-    private val onBoardList: ArrayList<PagerModel>,
-    private val onStart: (PagerModel) -> Unit,
-    private val onSkip: (PagerModel) -> Unit
+    private val onBoardList: ArrayList<OnBoardModel>,
+    private val onStart: (OnBoardModel) -> Unit,
+    private val onSkip: (OnBoardModel) -> Unit
 ) : RecyclerView.Adapter<OnBoardAdapter.OnBoardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnBoardViewHolder {
@@ -29,7 +29,7 @@ class OnBoardAdapter(
     inner class OnBoardViewHolder(private val binding: PagerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(pagerModel: PagerModel) {
+        fun bind(pagerModel: OnBoardModel) {
 
             binding.tvTitle.text = pagerModel.title
             binding.tvDesc.text = pagerModel.desc
@@ -38,7 +38,6 @@ class OnBoardAdapter(
                 binding.btnStart.visibility = View.INVISIBLE
                 binding.tvSkip.visibility = View.VISIBLE
                 binding.tvSkip.setOnClickListener {
-                    Log.d("onSkip", "clicked ")
                     onSkip(pagerModel)
                 }
             } else {

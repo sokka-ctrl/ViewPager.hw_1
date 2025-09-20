@@ -6,44 +6,60 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:layout_marginVertical="10dp"
-    android:background="@drawable/corner_6"
-    android:padding="14dp"
+    android:background="@drawable/corner_10"
     tools:backgroundTint="@color/gray_light">
 
-    <TextView
-        android:id="@+id/tv_noteTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="План на жизнь:" />
 
-    <TextView
-        android:id="@+id/tv_notes_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_noteTitle"
-        tools:text="Посадить сына, вырастить дом, построить дерево. Нужно..." />
+        >
 
-    <TextView
-        android:id="@+id/tv_notes_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_notes_desc"
-        tools:text="31 мая 12:45" />
+
+
+        <TextView
+            android:id="@+id/tv_noteTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="План на жизнь:" />
+
+        <TextView
+            android:id="@+id/tv_notes_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_noteTitle"
+            tools:text="Посадить сына, вырастить дом, построить дерево. Нужно..." />
+
+        <TextView
+            android:id="@+id/tv_notes_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_notes_desc"
+            tools:text="31 мая 12:45" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

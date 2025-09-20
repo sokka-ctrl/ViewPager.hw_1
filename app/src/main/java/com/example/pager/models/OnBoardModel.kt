@@ -1,6 +1,6 @@
 package com.example.pager.models
 
-data class PagerModel(
+data class OnBoardModel(
     val title: String,
     val desc: String,
     val lottieImg: Int

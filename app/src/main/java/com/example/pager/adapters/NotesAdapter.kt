@@ -1,5 +1,6 @@
 package com.example.pager.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -7,8 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pager.models.NotesModel
 import com.example.pager.databinding.NotesItemBinding
 
-class NotesAdapter(val list_note: ArrayList<NotesModel>) :
+class NotesAdapter(private val onItemLongClick: (NotesModel) -> Unit ) :
     RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
+    private val listNote = arrayListOf<NotesModel>()
+
+    fun addNotes(list: List<NotesModel>) {
+        listNote.clear()
+        listNote.addAll(list)
+    }
+
+    fun getAllNotes(list: List<NotesModel>) {
+        listNote.clear()
+        listNote.addAll(list)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -26,11 +40,11 @@ class NotesAdapter(val list_note: ArrayList<NotesModel>) :
         holder: NotesViewHolder,
         position: Int
     ) {
-        holder.onBind(list_note[position])
+        holder.onBind(listNote[position])
     }
 
     override fun getItemCount(): Int {
-        return list_note.size
+        return listNote.size
     }
 
 
@@ -39,8 +53,7 @@ class NotesAdapter(val list_note: ArrayList<NotesModel>) :
 
 
         fun onBind(model: NotesModel) {
-            val colorInt = ContextCompat.getColor(itemView.context, model.notesColor)
-            binding.root.background.setTint(colorInt)
+            binding.back.setBackgroundColor(Color.parseColor(model.notesColor))
             binding.tvNoteTitle.text = model.notesTitle
             binding.tvNotesDesc.text = model.notesDesc
             binding.tvNotesData.text = model.notesData
@@ -48,6 +61,13 @@ class NotesAdapter(val list_note: ArrayList<NotesModel>) :
                 itemView.animate().scaleX(1.05f).scaleY(1.05f).setDuration(100).withEndAction {
                     itemView.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100).start()
                 }.start()
+            }
+            itemView.setOnLongClickListener {
+                itemView.animate().scaleX(1.05f).scaleY(1.05f).setDuration(50).withEndAction {
+                    itemView.animate().scaleX(0.0f).scaleY(0.0f).setDuration((50))
+                }
+                onItemLongClick(model)
+                true
             }
         }
     }

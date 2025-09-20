@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:padding="20dp"
+    tools:context=".ui.Create_notes">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/corner_10"
+    android:backgroundTint="@color/dark_gray">
+
+
+
+    <EditText
+        android:id="@+id/et_create_title"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="10dp"
+        android:background="@color/dark_gray"
+        android:hint="title"
+        android:textColor="@color/white"
+        android:paddingLeft="30dp"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_create_desc"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="10dp"
+        android:background="@color/gray_light"
+        android:hint="descriptin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_create_title" />
+
+    <EditText
+        android:id="@+id/et_create_date"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="10dp"
+        android:background="@color/gray_light"
+        android:hint="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_create_desc" />
+
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/dark_yellow"
+        android:text="save"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_create_date" />
+
+
+    <Button
+        android:id="@+id/btn_red"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/light_red"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_save" />
+
+    <Button
+        android:id="@+id/btn_yellow"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/banana"
+        app:layout_constraintStart_toEndOf="@id/btn_red"
+        app:layout_constraintTop_toBottomOf="@id/btn_save" />
+
+    <Button
+        android:id="@+id/btn_blue"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/blue_light"
+        app:layout_constraintStart_toEndOf="@id/btn_yellow"
+        app:layout_constraintTop_toBottomOf="@id/btn_save" />
+
+    <Button
+        android:id="@+id/btn_salad"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/salad"
+        app:layout_constraintStart_toEndOf="@id/btn_blue"
+        app:layout_constraintTop_toBottomOf="@id/btn_save" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,9 @@ plugins {
     alias(libs.plugins.navigation.safeargs )
     //parcelize
     id("org.jetbrains.kotlin.plugin.parcelize")
+    //ksp
+    id("com.google.devtools.ksp")
+
 }
 
 android {
@@ -60,4 +63,9 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:5.0.4")
     //lottie
     implementation(libs.lottie)
+    //room
+    val room_version = "2.8.0"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
 }

@@ -47,10 +47,11 @@
         android:layout_height="50dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/corner_20"
-        android:backgroundTint="@color/gray_light"
+        android:background="@drawable/corner_10"
+        android:backgroundTint="@color/gray"
+        android:paddingStart="30dp"
         android:hint="@string/search"
-        android:paddingStart="20dp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_mainTitle" />
@@ -59,12 +60,23 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_notes_main"
         android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_search"
         tools:listitem="@layout/notes_item" />
+
+    <Button
+        android:id="@+id/btn_create"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="30dp"
+        android:backgroundTint="@color/dark_yellow"
+        android:text="+"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

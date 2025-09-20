@@ -6,15 +6,15 @@ import com.example.pager.keys.AppKey
 
 class Pref(context: Context) {
 
-    val pref: SharedPreferences = context.getSharedPreferences(AppKey.KeyR, Context.MODE_PRIVATE)
+    private val pref: SharedPreferences = context.getSharedPreferences(AppKey.KEY_R, Context.MODE_PRIVATE)
 
-    fun saveTepter(tepter: Boolean) {
+    fun saveFirstOpen(isOpen: Boolean) {
         pref.edit {
-            putBoolean(AppKey.KeyM, tepter)
+            putBoolean(AppKey.KEY_M, isOpen)
         }
     }
 
-    fun getTepter(): Boolean {
-        return pref.getBoolean(AppKey.KeyM, true)
+    fun getFirstOpen(): Boolean {
+        return pref.getBoolean(AppKey.KEY_M, false)
     }
 }
