@@ -90,9 +90,12 @@ class CreateNotes : Fragment() {
         }
 
         binding.tvDelete.setOnClickListener {
-            App.db.dao().deleteNote(note?.id!!)
-            findNavController().navigate(R.id.secondPagerFragment)
+            note?.let { safeNote ->
+                App.db.dao().deleteNote(safeNote)
+                findNavController().navigate(R.id.secondPagerFragment)
+            }
         }
+
 
         binding.ivMenu.setOnClickListener {
             if (menuVisible == true) {
@@ -106,9 +109,7 @@ class CreateNotes : Fragment() {
                 binding.viewMenuChange.visibility = View.VISIBLE
             }
         }
-
-
-
+        
         binding.btnYellow.setOnClickListener {
             selectedColor = "#FFF599"
             binding.viewMenuChange.visibility = View.GONE

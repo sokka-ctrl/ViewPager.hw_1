@@ -19,7 +19,7 @@ import com.example.pager.models.NotesModel
 class SecondPagerFragment : Fragment() {
     private lateinit var binding: FragmentSecondPagerBinding
     private val notesAdapter = NotesAdapter(::onClick) { note ->
-        App.db.dao().deleteNote(note.id!!)
+        App.db.dao().deleteNote(note)
     }
     private var boolForNotes = false
     override fun onCreateView(
