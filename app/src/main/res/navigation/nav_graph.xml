@@ -9,21 +9,39 @@
         android:id="@+id/secondPagerFragment"
         android:name="com.example.pager.ui.SecondPagerFragment"
         android:label="SecondPagerFragment"
-        tools:layout="@layout/fragment_second_pager"/>
+        tools:layout="@layout/fragment_second_pager">
+
+        <action
+            android:id="@+id/action_secondPagerFragment_to_CreateNotes"
+            app:destination="@id/CreateNotes" >
+            <argument
+                android:name="task"
+                app:argType="com.example.pager.models.NotesModel"
+                app:nullable="true"
+                />
+        </action>
+
+    </fragment>
 
 
     <fragment
         android:id="@+id/pagerFragment"
         android:name="com.example.pager.ui.PagerFragment"
         android:label="fragment_pager"
-
         tools:layout="@layout/fragment_pager">
 
     </fragment>
     <fragment
-        android:id="@+id/create_notes"
-        android:name="com.example.pager.ui.Create_notes"
+        android:id="@+id/CreateNotes"
+        android:name="com.example.pager.ui.CreateNotes"
         android:label="fragment_create_notes"
-        tools:layout="@layout/fragment_create_notes" />
+        tools:layout="@layout/fragment_create_notes" >
+        <argument
+            android:name="task"
+            app:argType="com.example.pager.models.NotesModel"
+            app:nullable="true"
+            />
+
+    </fragment>
 
 </navigation>

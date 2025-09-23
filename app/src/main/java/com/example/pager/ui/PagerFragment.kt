@@ -14,7 +14,6 @@ import com.example.pager.models.OnBoardModel
 import com.example.pref.local.Pref
 
 class PagerFragment : Fragment() {
-    private var isOpen: Boolean = true
     private lateinit var pref: Pref
     private lateinit var binding: FragmentPagerBinding
 
@@ -27,12 +26,8 @@ class PagerFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
 
         val modelList = arrayListOf(
             OnBoardModel(
@@ -54,11 +49,9 @@ class PagerFragment : Fragment() {
 
         val adapter = OnBoardAdapter(modelList, ::onStart, ::onSkip)
         binding.vpViewPager2.adapter = adapter
-
         val wormDotsIndicator = binding.dotsIndicator
         val viewPager = binding.vpViewPager2
         viewPager.adapter = adapter
-
         wormDotsIndicator.attachTo(viewPager)
     }
 

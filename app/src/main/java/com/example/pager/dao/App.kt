@@ -1,9 +1,7 @@
-package com.example.pager
+package com.example.pager.dao
 
 import android.app.Application
-import androidx.room.Database
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.pager.local.DataBase
 
 class App : Application() {

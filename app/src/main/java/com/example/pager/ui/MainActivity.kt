@@ -9,7 +9,6 @@ import com.example.pref.local.Pref
 
 class MainActivity : AppCompatActivity() {
 
-
     private lateinit var pref: Pref
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

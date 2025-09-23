@@ -1,8 +1,8 @@
 package com.example.pager.models
 
-import androidx.room.DeleteColumn
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 
 @Entity(tableName = "notes_list")
@@ -13,4 +13,4 @@ val notesTitle: String,
 val notesDesc: String,
 val notesData: String,
     val notesColor: String
-)
+) : Serializable

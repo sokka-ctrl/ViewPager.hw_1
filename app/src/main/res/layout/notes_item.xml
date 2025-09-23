@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="140dp"
     android:layout_margin="10dp"
     android:layout_marginVertical="10dp"
     android:background="@drawable/corner_10"
@@ -17,11 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        >
-
-
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tv_noteTitle"
@@ -41,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:ellipsize="end"
+            android:maxLines="2"
             android:textColor="@color/black"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -59,7 +56,5 @@
             tools:text="31 мая 12:45" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
