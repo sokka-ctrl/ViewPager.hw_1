@@ -1,23 +1,41 @@
-package com.example.pager.ui
+package com.example.pager.ui.notes
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.credentials.ClearCredentialStateRequest
+import androidx.credentials.CredentialManager
+import androidx.credentials.exceptions.ClearCredentialException
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pager.dao.App
-import com.example.pager.adapters.NotesAdapter
+import com.example.pager.App
+import com.example.pager.R
+import com.example.pager.data.models.NotesModel
 import com.example.pager.databinding.FragmentSecondPagerBinding
-import com.example.pager.models.NotesModel
+import com.example.pager.loadImg
+import com.example.pager.ui.notes.adapter.NotesAdapter
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.auth
+import kotlinx.coroutines.launch
 
 class SecondPagerFragment : Fragment() {
     private lateinit var binding: FragmentSecondPagerBinding
+    private var auth: FirebaseAuth = Firebase.auth
+    private var user = auth.currentUser
+    private lateinit var credentialManager: CredentialManager
     private val notesAdapter = NotesAdapter(::onClick) { note ->
         App.db.dao().deleteNote(note)
     }
@@ -31,7 +49,21 @@ class SecondPagerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        credentialManager = CredentialManager.create(requireContext())
         super.onViewCreated(view, savedInstanceState)
+        val name = user?.displayName
+        val emeil = user?.email
+        val imUrl = user?.photoUrl
+
+        val imageView = ImageView(requireContext())
+        imageView.layoutParams = LinearLayout.LayoutParams(200, 200)
+        loadImg(requireContext(), imUrl.toString(), imageView)
+        val layout = LinearLayout(requireContext())
+        layout.orientation = LinearLayout.VERTICAL
+        layout.addView(imageView)
+
+        loadImg(requireContext(), imUrl.toString(), binding.ivMenu)
+
         initView()
         getData()
         setUpLiester()
@@ -44,6 +76,25 @@ class SecondPagerFragment : Fragment() {
         recyclerView.adapter = notesAdapter
         val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = if (boolForNotes) gridLayoutManager else linearLayoutManager
+
+        binding.ivMenu.setOnClickListener {
+            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+            val layout = LinearLayout(requireContext())
+            builder.setView(layout)
+                .setMessage("Вы " + emeil + " хотите покинуть акаунт?")
+                .setTitle("выход из " + name)
+                .setPositiveButton("Да") { dialog, which ->
+                    FirebaseAuth.getInstance().signOut()
+                    signOut()
+                    finish()
+                }
+                .setNegativeButton("Нет") { dialog, which ->
+
+                }
+
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+        }
 
         binding.ivChangeType.setOnClickListener {
             binding.rvNotesMain.post {
@@ -107,5 +158,25 @@ class SecondPagerFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         getData()
+    }
+
+    private fun signOut() {
+        auth.signOut()
+
+        lifecycleScope.launch {
+            try {
+                val clearRequest = ClearCredentialStateRequest()
+                credentialManager.clearCredentialState(clearRequest)
+                updateUI(null)
+            } catch (e: ClearCredentialException) {
+                Toast.makeText(requireContext(), "что то пошло не так", Toast.LENGTH_SHORT)
+            }
+        }
+    }
+
+    private fun updateUI(user: FirebaseUser?) {}
+
+    private fun finish() {
+        finish()
     }
 }

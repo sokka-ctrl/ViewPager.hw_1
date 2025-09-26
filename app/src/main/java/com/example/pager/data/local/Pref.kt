@@ -1,8 +1,9 @@
-package com.example.pref.local
+package com.example.pager.data.local
+
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.example.pager.keys.AppKey
+import com.example.pager.core.AppKey
 
 class Pref(context: Context) {
 

@@ -1,4 +1,4 @@
-package com.example.pager.models
+package com.example.pager.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

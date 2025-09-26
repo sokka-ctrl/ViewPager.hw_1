@@ -13,7 +13,6 @@
         android:id="@+id/iv_menu"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/ic_menu"
         app:layout_constraintBottom_toBottomOf="@+id/tv_mainTitle"
         app:layout_constraintStart_toStartOf="@id/et_search"
         app:layout_constraintTop_toTopOf="@id/tv_mainTitle" />

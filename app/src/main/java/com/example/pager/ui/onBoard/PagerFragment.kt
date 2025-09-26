@@ -1,4 +1,4 @@
-package com.example.pager.ui
+package com.example.pager.ui.onBoard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.pager.R
-import com.example.pager.adapters.OnBoardAdapter
+import com.example.pager.data.local.Pref
+import com.example.pager.data.models.OnBoardModel
 import com.example.pager.databinding.FragmentPagerBinding
-import com.example.pager.models.OnBoardModel
-import com.example.pref.local.Pref
+import com.example.pager.ui.onBoard.adapter.OnBoardAdapter
 
 class PagerFragment : Fragment() {
     private lateinit var pref: Pref
@@ -33,7 +33,7 @@ class PagerFragment : Fragment() {
             OnBoardModel(
                 "Удобство",
                 "Создавайте заметки в два клика! Записывайте мысли, идеи и важные задачи мгновенно.",
-                R.raw.lottie_one
+                R.raw.lottie_triple
             ),
             OnBoardModel(
                 "Организация",
@@ -61,6 +61,6 @@ class PagerFragment : Fragment() {
 
     private fun onStart(pagerModel: OnBoardModel) {
         pref.saveFirstOpen(true)
-        findNavController().navigate(R.id.secondPagerFragment)
+        findNavController().navigate(R.id.action_pagerFragment_to_signing)
     }
 }

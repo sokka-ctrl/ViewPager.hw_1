@@ -1,14 +1,15 @@
-import com.android.build.api.dsl.ViewBinding
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
     //navigation
     alias(libs.plugins.navigation.safeargs )
     //parcelize
     id("org.jetbrains.kotlin.plugin.parcelize")
     //ksp
     id("com.google.devtools.ksp")
-
+    //firebase
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -51,9 +52,16 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
     //view pager indicator
     implementation("com.tbuonomo:dotsindicator:5.1.0")
     //navigation
@@ -65,7 +73,14 @@ dependencies {
     implementation(libs.lottie)
     //room
     val room_version = "2.8.0"
-
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
+    //creditional meneger
+    implementation("androidx.credentials:credentials:1.2.2")
+    implementation("androidx.credentials:credentials-play-services-auth:1.2.2")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 }

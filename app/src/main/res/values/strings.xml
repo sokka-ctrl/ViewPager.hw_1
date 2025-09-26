@@ -7,4 +7,5 @@
     <string name="start">Начать</string>
     <string name="search">🔎 Поиск заметок</string>
     <string name="notesAll">Все заметки</string>
+    <string name="deafult_id_token_client">162410898371-uieubk3heois3cjrbhj510qlg4eoi76v.apps.googleusercontent.com</string>
 </resources>

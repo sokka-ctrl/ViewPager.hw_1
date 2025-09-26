@@ -1,6 +1,8 @@
-package com.example.pager.ui
+package com.example.pager.ui.create
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +10,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.pager.dao.App
+import com.example.pager.App
 import com.example.pager.R
+import com.example.pager.data.models.NotesModel
 import com.example.pager.databinding.FragmentCreateNotesBinding
-import com.example.pager.models.NotesModel
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Locale
+import java.util.Calendar
 
 private var note: NotesModel? = null
 
@@ -44,17 +44,17 @@ class CreateNotes : Fragment() {
     @SuppressLint("DefaultLocale")
     private fun setUpLister() {
         binding.tvDate.setOnClickListener {
-            val calendar = java.util.Calendar.getInstance()
-            val year = calendar.get(java.util.Calendar.YEAR)
-            val month = calendar.get(java.util.Calendar.MONTH)
-            val day = calendar.get(java.util.Calendar.DAY_OF_MONTH)
-            val hour = calendar.get(java.util.Calendar.HOUR_OF_DAY)
-            val minute = calendar.get(java.util.Calendar.MINUTE)
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            val hour = calendar.get(Calendar.HOUR_OF_DAY)
+            val minute = calendar.get(Calendar.MINUTE)
 
-            val datePicker = android.app.DatePickerDialog(
+            val datePicker = DatePickerDialog(
                 requireContext(),
                 { _, selectedYear, selectedMonth, selectedDay ->
-                    val timePicker = android.app.TimePickerDialog(
+                    val timePicker = TimePickerDialog(
                         requireContext(),
                         { _, selectedHour, selectedMinute ->
                             val selectedDateTime =

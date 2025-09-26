@@ -1,4 +1,4 @@
-package com.example.pager.keys
+package com.example.pager.core
 
 object AppKey {
     var KEY_R = "keyR"

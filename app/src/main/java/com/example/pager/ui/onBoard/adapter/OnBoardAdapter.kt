@@ -1,11 +1,10 @@
-package com.example.pager.adapters
+package com.example.pager.ui.onBoard.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pager.models.OnBoardModel
+import com.example.pager.data.models.OnBoardModel
 import com.example.pager.databinding.PagerItemBinding
 
 class OnBoardAdapter(

@@ -1,12 +1,12 @@
-package com.example.pager.adapters
+package com.example.pager.ui.notes.adapter
+
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.example.pager.databinding.NotesItemBinding
-import com.example.pager.models.NotesModel
 import androidx.core.graphics.toColorInt
+import androidx.recyclerview.widget.RecyclerView
+import com.example.pager.data.models.NotesModel
+import com.example.pager.databinding.NotesItemBinding
 
 class NotesAdapter(val onClick: (NotesModel) -> Unit, val onLongClick: (NotesModel) -> Unit) :
     RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
