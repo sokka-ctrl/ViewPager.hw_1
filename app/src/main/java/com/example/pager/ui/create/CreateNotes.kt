@@ -79,6 +79,7 @@ class CreateNotes : Fragment() {
                 day
             )
             datePicker.show()
+
         }
 
 
@@ -87,6 +88,8 @@ class CreateNotes : Fragment() {
         note?.let {
             binding.etCreateTitle.setText(it.notesTitle)
             binding.etCreateDesc.setText(it.notesDesc)
+            binding.tvDate.setText(it.notesData)
+            selectedColor = it.notesColor
         }
 
         binding.tvDelete.setOnClickListener {

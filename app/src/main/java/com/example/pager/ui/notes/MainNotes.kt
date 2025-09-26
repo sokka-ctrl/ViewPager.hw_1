@@ -55,13 +55,6 @@ class SecondPagerFragment : Fragment() {
         val emeil = user?.email
         val imUrl = user?.photoUrl
 
-        val imageView = ImageView(requireContext())
-        imageView.layoutParams = LinearLayout.LayoutParams(200, 200)
-        loadImg(requireContext(), imUrl.toString(), imageView)
-        val layout = LinearLayout(requireContext())
-        layout.orientation = LinearLayout.VERTICAL
-        layout.addView(imageView)
-
         loadImg(requireContext(), imUrl.toString(), binding.ivMenu)
 
         initView()
@@ -72,14 +65,19 @@ class SecondPagerFragment : Fragment() {
 
         val recyclerView: RecyclerView = binding.rvNotesMain
         val linearLayoutManager = LinearLayoutManager(context)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerView.adapter = notesAdapter
         val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = if (boolForNotes) gridLayoutManager else linearLayoutManager
 
         binding.ivMenu.setOnClickListener {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+            val imageView = ImageView(requireContext())
+            loadImg(requireContext(), imUrl.toString(), imageView)
+            imageView.layoutParams = LinearLayout.LayoutParams(200, 200)
+
             val layout = LinearLayout(requireContext())
+            val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+            layout.orientation = LinearLayout.VERTICAL
+            layout.addView(imageView)
             builder.setView(layout)
                 .setMessage("Вы " + emeil + " хотите покинуть акаунт?")
                 .setTitle("выход из " + name)
@@ -158,6 +156,10 @@ class SecondPagerFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         getData()
+    }
+
+    private fun loadimgDialog(imgUrl: String){
+
     }
 
     private fun signOut() {
