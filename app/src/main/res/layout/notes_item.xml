@@ -3,21 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
-    android:layout_margin="10dp"
+    android:layout_height="100dp"
+    android:padding="20dp"
+    android:layout_margin="4dp"
     android:layout_marginVertical="10dp"
-    android:background="@drawable/corner_10"
+    android:background="@drawable/corner_12"
     tools:backgroundTint="@color/gray_light">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/back"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+
 
         <TextView
             android:id="@+id/tv_noteTitle"
@@ -35,9 +28,8 @@
             android:id="@+id/tv_notes_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -54,7 +46,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_notes_desc"
             tools:text="31 мая 12:45" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.credentials.ClearCredentialStateRequest
@@ -20,9 +19,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pager.App
+import com.example.pager.R
 import com.example.pager.data.models.NotesModel
 import com.example.pager.databinding.FragmentSecondPagerBinding
-import com.example.pager.utils.loadImg
+import com.example.pager.loadImg
 import com.example.pager.ui.notes.adapter.NotesAdapter
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -31,12 +31,15 @@ import com.google.firebase.auth.auth
 import kotlinx.coroutines.launch
 
 class SecondPagerFragment : Fragment() {
+    private var selectedNote: NotesModel? = null
+
     private lateinit var binding: FragmentSecondPagerBinding
     private var auth: FirebaseAuth = Firebase.auth
     private var user = auth.currentUser
     private lateinit var credentialManager: CredentialManager
     private val notesAdapter = NotesAdapter(::onClick) { note ->
-        App.db.dao().deleteNote(note)
+        selectedNote = note
+        binding.clDeleteChange.visibility = View.VISIBLE
     }
     private var boolForNotes = false
     override fun onCreateView(
@@ -63,10 +66,22 @@ class SecondPagerFragment : Fragment() {
         boolForNotes = savedInstanceState?.getBoolean("keyNote") ?: false
 
         val recyclerView: RecyclerView = binding.rvNotesMain
-        val linearLayoutManager = LinearLayoutManager(context)
         recyclerView.adapter = notesAdapter
+
+        val linearLayoutManager = LinearLayoutManager(context)
         val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = if (boolForNotes) gridLayoutManager else linearLayoutManager
+
+        binding.btnDeleteChange.setOnClickListener {
+            val noteToDelete = selectedNote ?: return@setOnClickListener
+            App.db.dao().deleteNote(noteToDelete)
+            notesAdapter.removeNote(noteToDelete)
+            binding.clDeleteChange.visibility = View.GONE
+        }
+
+        binding.btnDont.setOnClickListener {
+            binding.clDeleteChange.visibility = View.GONE
+        }
 
         binding.ivMenu.setOnClickListener {
             val imageView = ImageView(requireContext())
@@ -83,24 +98,27 @@ class SecondPagerFragment : Fragment() {
                 .setPositiveButton("Да") { dialog, which ->
                     FirebaseAuth.getInstance().signOut()
                     signOut()
-                    finish()
+                    requireActivity().finish()
                 }
                 .setNegativeButton("Нет") { dialog, which ->
-
                 }
 
             val dialog: AlertDialog = builder.create()
             dialog.show()
         }
 
+
+
         binding.ivChangeType.setOnClickListener {
-            binding.rvNotesMain.post {
+            binding.rvNotesMain.post{
                 if (boolForNotes == true) {
+                    binding.ivChangeType.setImageResource(R.drawable.ic_shape)
                     boolForNotes = false
                     recyclerView.layoutManager = linearLayoutManager
                 } else {
                     boolForNotes = true
                     recyclerView.layoutManager = gridLayoutManager
+                    binding.ivChangeType.setImageResource(R.drawable.change_linear)
                 }
             }
         }
@@ -128,7 +146,8 @@ class SecondPagerFragment : Fragment() {
 
     private fun onClick(notesModel: NotesModel) {
         val action =
-            SecondPagerFragmentDirections.actionSecondPagerFragmentToCreateNotes(notesModel)
+            SecondPagerFragmentDirections.actionSecondPagerFragmentToCreateNotes(
+                notesModel)
         findNavController().navigate(action)
     }
 
@@ -157,10 +176,6 @@ class SecondPagerFragment : Fragment() {
         getData()
     }
 
-    private fun loadimgDialog(imgUrl: String){
-
-    }
-
     private fun signOut() {
         auth.signOut()
 
@@ -170,14 +185,11 @@ class SecondPagerFragment : Fragment() {
                 credentialManager.clearCredentialState(clearRequest)
                 updateUI(null)
             } catch (e: ClearCredentialException) {
-                Toast.makeText(requireContext(), "что то пошло не так", Toast.LENGTH_SHORT)
+
             }
         }
     }
 
     private fun updateUI(user: FirebaseUser?) {}
 
-    private fun finish() {
-        finish()
-    }
 }

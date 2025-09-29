@@ -1,9 +1,8 @@
 package com.example.pager.ui.create
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,24 +13,22 @@ import com.example.pager.App
 import com.example.pager.R
 import com.example.pager.data.models.NotesModel
 import com.example.pager.databinding.FragmentCreateNotesBinding
-import java.util.Calendar
+import java.text.SimpleDateFormat
+import java.util.*
 
 private var note: NotesModel? = null
 
 class CreateNotes : Fragment() {
     private var menuVisible = false
     private var selectedColor: String = "#B4B4B4"
-    val args: CreateNotesArgs by navArgs()
 
     private lateinit var binding: FragmentCreateNotesBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    val args: CreateNotesArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCreateNotesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -43,112 +40,122 @@ class CreateNotes : Fragment() {
 
     @SuppressLint("DefaultLocale")
     private fun setUpLister() {
-        binding.tvDate.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-            val hour = calendar.get(Calendar.HOUR_OF_DAY)
-            val minute = calendar.get(Calendar.MINUTE)
-
-            val datePicker = DatePickerDialog(
-                requireContext(),
-                { _, selectedYear, selectedMonth, selectedDay ->
-                    val timePicker = TimePickerDialog(
-                        requireContext(),
-                        { _, selectedHour, selectedMinute ->
-                            val selectedDateTime =
-                                String.format(
-                                    "%02d.%02d.%04d %02d:%02d",
-                                    selectedDay,
-                                    selectedMonth + 1,
-                                    selectedYear,
-                                    selectedHour,
-                                    selectedMinute
-                                )
-                            binding.tvDate.text = selectedDateTime
-                        },
-                        hour,
-                        minute,
-                        true
-                    )
-                    timePicker.show()
-                },
-                year,
-                month,
-                day
-            )
-            datePicker.show()
-
-        }
-
-
         binding.viewMenuChange.visibility = View.GONE
         note = args.task
+        if (note == null){
+            binding.tvDelete.visibility = View.GONE
+            binding.ivBine.visibility = View.GONE
+            binding.tvStick.visibility = View.GONE
+        }
         note?.let {
             binding.etCreateTitle.setText(it.notesTitle)
             binding.etCreateDesc.setText(it.notesDesc)
-            binding.tvDate.setText(it.notesData)
+            binding.tvDate.text = it.notesData
             selectedColor = it.notesColor
+        } ?: run {
+            val formatter = SimpleDateFormat("yyyy-MM-dd")
+            binding.tvDate.text = formatter.format(Date())
         }
+
+        binding.etCreateTitle.addTextChangedListener(object : android.text.TextWatcher{
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {}
+
+            override fun onTextChanged(
+                s: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+                if (s.toString().length >= 1 && binding.etCreateDesc.text.length >= 1){
+                    binding.btnSave.visibility = View.VISIBLE
+                }
+                else{
+                    binding.btnSave.visibility = View.GONE
+                }
+            }
+        })
+
+        binding.etCreateDesc.addTextChangedListener(object : android.text.TextWatcher{
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {}
+
+            override fun onTextChanged(
+                s: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+                if (s.toString().length >= 1  && binding.etCreateTitle.text.length >= 1){
+                    binding.btnSave.visibility = View.VISIBLE
+                }
+                else{
+                    binding.btnSave.visibility = View.GONE
+                }
+            }
+        })
 
         binding.tvDelete.setOnClickListener {
-            note?.let { safeNote ->
-                App.db.dao().deleteNote(safeNote)
-                findNavController().navigate(R.id.secondPagerFragment)
+            binding.clDeleteChange.visibility = View.VISIBLE
+
+            binding.btnDeleteChange.setOnClickListener {
+                note?.let { safeNote ->
+                    App.db.dao().deleteNote(safeNote)
+                    findNavController().navigate(R.id.secondPagerFragment)
+                }
+                binding.clDeleteChange.visibility = View.GONE
+            }
+            binding.btnDont.setOnClickListener {
+                binding.clDeleteChange.visibility = View.GONE
             }
         }
-
 
         binding.ivMenu.setOnClickListener {
-            if (menuVisible == true) {
-                menuVisible = false
-            } else {
-                menuVisible = true
-            }
-            if (menuVisible == false) {
-                binding.viewMenuChange.visibility = View.GONE
-            } else {
-                binding.viewMenuChange.visibility = View.VISIBLE
-            }
+            menuVisible = !menuVisible
+            binding.viewMenuChange.visibility = if (menuVisible) View.VISIBLE else View.GONE
         }
-        
-        binding.btnYellow.setOnClickListener {
-            selectedColor = "#FFF599"
-            binding.viewMenuChange.visibility = View.GONE
-        }
-        binding.btnRed.setOnClickListener {
-            selectedColor = "#FF9E9E"
-            binding.viewMenuChange.visibility = View.GONE
-        }
-        binding.btnSalad.setOnClickListener {
-            selectedColor = "#91F48F"
-            binding.viewMenuChange.visibility = View.GONE
-        }
-        binding.btnBlue.setOnClickListener {
-            selectedColor = "#9EFFFF"
-            binding.viewMenuChange.visibility = View.GONE
-        }
-        binding.btnPink.setOnClickListener {
-            selectedColor = "#FD99FF"
-            binding.viewMenuChange.visibility = View.GONE
-        }
-        binding.btnPurple.setOnClickListener {
-            selectedColor = "#B69CFF"
-            binding.viewMenuChange.visibility = View.GONE
-        }
+
+
+        binding.btnYellow.setOnClickListener { selectColor("#FFF599") }
+        binding.btnRed.setOnClickListener { selectColor("#FF9E9E") }
+        binding.btnSalad.setOnClickListener { selectColor("#91F48F") }
+        binding.btnBlue.setOnClickListener { selectColor("#9EFFFF") }
+        binding.btnPink.setOnClickListener { selectColor("#FD99FF") }
+        binding.btnPurple.setOnClickListener { selectColor("#B69CFF") }
+
         binding.btnSave.setOnClickListener {
             appData()
-            findNavController().navigate(R.id.secondPagerFragment)
+            findNavController().navigate(R.id.action_CreateNotes_to_secondPagerFragment)
         }
+        binding.ivBack.setOnClickListener {
+            findNavController().navigate(R.id.action_CreateNotes_to_secondPagerFragment)
+        }
+    }
+    private fun selectColor(color: String) {
+        selectedColor = color
+        binding.viewMenuChange.visibility = View.GONE
     }
 
     private fun appData() {
-        note = args.task
-        val title: String = binding.etCreateTitle.text.toString()
-        val desc: String = binding.etCreateDesc.text.toString()
-        val date: String = binding.tvDate.text.toString()
-            val color = selectedColor
+        val title = binding.etCreateTitle.text.toString()
+        val desc = binding.etCreateDesc.text.toString()
+        val date = binding.tvDate.text.toString()
+        val color = selectedColor
+
         if (note != null) {
             App.db.dao().updateNote(
                 note!!.copy(
@@ -160,15 +167,13 @@ class CreateNotes : Fragment() {
             )
         } else {
             val newNote = NotesModel(
-                    notesTitle = title,
-                    notesDesc = desc,
-                    notesData = date,
-                    notesColor = color
-                )
+                notesTitle = title,
+                notesDesc = desc,
+                notesData = date,
+                notesColor = color
+            )
             App.db.dao().addNote(newNote)
         }
-        }
-
     }
 
-
+}

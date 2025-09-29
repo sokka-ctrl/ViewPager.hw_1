@@ -13,9 +13,9 @@
 
         <action
             android:id="@+id/action_secondPagerFragment_to_CreateNotes"
-            app:destination="@id/CreateNotes"
             app:popUpTo="@id/secondPagerFragment"
-            app:popUpToInclusive="true">
+            app:popUpToInclusive="true"
+            app:destination="@id/CreateNotes">
 
             <argument
                 android:name="task"
@@ -56,6 +56,11 @@
             android:name="task"
             app:argType="com.example.pager.data.models.NotesModel"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_CreateNotes_to_secondPagerFragment"
+            app:popUpTo="@id/CreateNotes"
+            app:popUpToInclusive="true"
+            app:destination="@id/secondPagerFragment" />
 
     </fragment>
 

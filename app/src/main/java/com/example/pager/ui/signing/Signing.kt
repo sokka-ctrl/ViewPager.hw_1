@@ -35,6 +35,7 @@ class signing : Fragment() {
                 try {
                     val accouunt = task.getResult(ApiException::class.java)
                     firebaseAuthWithGoogle(accouunt.idToken)
+
                 } catch (e: ApiException) {
                     updateUI(null)
                 }
@@ -70,6 +71,7 @@ class signing : Fragment() {
                 val user = auth.currentUser
                 updateUI(user)
             } else {
+                Toast.makeText(requireContext(), "Что то пошло не так", Toast.LENGTH_SHORT).show()
                 updateUI(null)
             }
         }
@@ -78,9 +80,6 @@ class signing : Fragment() {
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
             findNavController().navigate(R.id.action_signing_to_secondPagerFragment)
-        } else {
-            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
         }
-
     }
 }
