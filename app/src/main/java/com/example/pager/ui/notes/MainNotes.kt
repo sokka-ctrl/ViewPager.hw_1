@@ -20,10 +20,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pager.App
-import com.example.pager.R
 import com.example.pager.data.models.NotesModel
 import com.example.pager.databinding.FragmentSecondPagerBinding
-import com.example.pager.loadImg
+import com.example.pager.utils.loadImg
 import com.example.pager.ui.notes.adapter.NotesAdapter
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
